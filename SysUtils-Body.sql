@@ -364,43 +364,43 @@ AS
                                                                          END AS saturday_of_month,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                                                                          
                                                                          fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
-                                                                                                                             to_number(to_char(last_day(sysdate),'DD')),
+                                                                                                                             to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              1
                                                                                                                              ) 
                                                                          AS sundays_in_month,  
                                                                          
                                                                          fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
-                                                                                                                             to_number(to_char(last_day(sysdate),'DD')),
+                                                                                                                             to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              2
                                                                                                                              ) 
                                                                          AS mondays_in_month,     
                                                                          
                                                                          fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
-                                                                                                                             to_number(to_char(last_day(sysdate),'DD')),
+                                                                                                                             to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              3
                                                                                                                              ) 
                                                                          AS tuesdays_in_month,   
                                                                          
                                                                          fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
-                                                                                                                             to_number(to_char(last_day(sysdate),'DD')),
+                                                                                                                             to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              4
                                                                                                                              ) 
                                                                          AS wednesdays_in_month,   
                                                                          
                                                                          fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
-                                                                                                                             to_number(to_char(last_day(sysdate),'DD')),
+                                                                                                                             to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              5
                                                                                                                              ) 
                                                                          AS thursdays_in_month,     
                                                                          
                                                                          fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
-                                                                                                                             to_number(to_char(last_day(sysdate),'DD')),
+                                                                                                                             to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              6
                                                                                                                              ) 
                                                                          AS fridays_in_month,     
                                                                          
                                                                          fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
-                                                                                                                             to_number(to_char(last_day(sysdate),'DD')),
+                                                                                                                             to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              7
                                                                                                                              ) 
                                                                          AS saturdays_in_month,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
