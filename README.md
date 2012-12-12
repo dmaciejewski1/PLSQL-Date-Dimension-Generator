@@ -11,17 +11,17 @@ As opposed to having to hand populate a date dimension table, this package will 
 
 SETUP:
 1) Install the date dimension table: "dim_sys_date_schema"
-2) Install the package ("sysutils") in a database (so far I've tested this in 10g and 11g environments)
+2) Install the "SysUtils" Package (Spec and Body:"SysUtils-Spec.sql" and "SysUtils-Body.sql") in a database (so far I've tested this in 10g and 11g environments)
 
 INSTRUCTIONS:
 A) To populate the "dim_sys_date_schema" table, here is a code example (in PL/SQL) using data ranging between 2010 to 2015 (Note: any data within the table will be lost upon executing the build command as the table will be wiped and repopulated)
 
           BEGIN
-          sysutils.sysdateschema('build', 2010, 2015);
+          SysUtils.SysDateSchema('build', 2010, 2015);
           END;
 
 B) To synchronize the "dim_sys_date_schema" table, here is a code example (in PL/SQL) to synchronize any dynamic column (such as "is_today") within the table:
 
           BEGIN
-          sysutils.sysdateschema('sync', NULL, NULL);
+          SysUtils.SysDateSchema('sync', NULL, NULL);
           END;

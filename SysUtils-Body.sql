@@ -1,9 +1,11 @@
 CREATE OR REPLACE PACKAGE BODY SysUtils AS
 
 FUNCTION IsNumber( 
-    i_check_value IN VARCHAR2 
+--PURPOSE: Determines whether an entered value is either a number or not
+
+    i_check_value IN VARCHAR2 -->enter numbers or letters
     ) 
-        RETURN NUMBER
+        RETURN NUMBER --> returns "1" if entered value is an number and "0" if not 
         
 AS
     testval NUMBER;
@@ -23,8 +25,173 @@ AS
            
  END IsNumber;
  
-  PROCEDURE SysDateSchema
+ FUNCTION DayOfWeeKCountForMonth( 
+--PURPOSE: Determines the number of times a specific day (of the week) occurs with a in month
 
+    i_start_day IN number,  -->enter the starting day of a month: 1=SUN, 2=MON, ... 7=SAT (e.g. the starting day for the month of December 2012 is a Saturday which = 7) 
+    i_days_in_month IN number, --> enter the total number of days of the month above (so the range is between (28 - 31) 
+    i_day_to_count IN number --> enter the day of the week to talley: 1=SUN, 2=MON, ... 7=SAT
+ ) 
+        
+        RETURN NUMBER --> number of specific days in month (i.e. number of Sundays in a month)
+        
+ AS
+    monthly_count          NUMBER;
+        
+ BEGIN
+ 
+    IF i_day_to_count = 1
+            THEN
+                    IF i_start_day IN (1) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 5;
+                    ELSIF i_start_day IN (2,3,4) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 4;
+                    ELSIF i_start_day IN (5) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;      
+                    ELSIF i_start_day IN (5) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;   
+                    ELSIF i_start_day IN (6) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;     
+                    ELSIF i_start_day IN (6) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;         
+                    ELSIF i_start_day IN (7) AND i_days_in_month IN (28)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (7) AND i_days_in_month IN (29,30,31)
+                            THEN monthly_count:= 5;                                                                                                         
+                    END IF;                                                                                
+         
+    ELSIF i_day_to_count = 2
+             THEN
+                    IF i_start_day IN (1) AND i_days_in_month IN (28)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (1) AND i_days_in_month IN (29,30,31)
+                            THEN monthly_count:= 5; 
+                    ELSIF i_start_day IN (2) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 5;  
+                    ELSIF i_start_day IN (3,4,5) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (6) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;      
+                    ELSIF i_start_day IN (6) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;  
+                    ELSIF i_start_day IN (7) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;     
+                    ELSIF i_start_day IN (7) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;                                                                                      
+                    END IF;         
+                    
+    ELSIF i_day_to_count = 3
+             THEN
+                    IF i_start_day IN (1) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;     
+                    ELSIF i_start_day IN (1) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;               
+                    ELSIF i_start_day IN (2) AND i_days_in_month IN (28)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (2) AND i_days_in_month IN (29,30,31)
+                            THEN monthly_count:= 5; 
+                    ELSIF i_start_day IN (3) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 5;  
+                    ELSIF i_start_day IN (4,5,6) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (7) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;      
+                    ELSIF i_start_day IN (7) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;                                                                                   
+                    END IF;       
+                    
+    ELSIF i_day_to_count = 4
+             THEN
+                    IF i_start_day IN (1) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;      
+                    ELSIF i_start_day IN (1) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;               
+                    ELSIF i_start_day IN (2) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;     
+                    ELSIF i_start_day IN (2) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;               
+                    ELSIF i_start_day IN (3) AND i_days_in_month IN (28)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (3) AND i_days_in_month IN (29,30,31)
+                            THEN monthly_count:= 5; 
+                    ELSIF i_start_day IN (4) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 5;  
+                    ELSIF i_start_day IN (5,6,7) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 4;                                                                                  
+                    END IF;         
+                    
+    ELSIF i_day_to_count = 5
+             THEN
+                    IF  i_start_day IN (5) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 5;  
+                    ELSIF i_start_day IN (6,7,1) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 4;                        
+                    ELSIF i_start_day IN (2) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;      
+                    ELSIF i_start_day IN (2) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;               
+                    ELSIF i_start_day IN (3) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;     
+                    ELSIF i_start_day IN (3) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;               
+                    ELSIF i_start_day IN (4) AND i_days_in_month IN (28)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (4) AND i_days_in_month IN (29,30,31)
+                            THEN monthly_count:= 5;                                                                            
+                    END IF;    
+                    
+                    
+    ELSIF i_day_to_count = 6
+             THEN
+                    IF i_start_day IN (5) AND i_days_in_month IN (28)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (5) AND i_days_in_month IN (29,30,31)
+                            THEN monthly_count:= 5;   
+                    ELSIF i_start_day IN (6) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 5;  
+                    ELSIF i_start_day IN (7,1,2) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 4;                        
+                    ELSIF i_start_day IN (3) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;      
+                    ELSIF i_start_day IN (3) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;               
+                    ELSIF i_start_day IN (4) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;     
+                    ELSIF i_start_day IN (4) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;                                                                                      
+                    END IF;                   
+
+                    
+    ELSIF i_day_to_count = 7
+             THEN
+                    IF  i_start_day IN (5) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;     
+                    ELSIF i_start_day IN (5) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;   
+                    ELSIF i_start_day IN (6) AND i_days_in_month IN (28)
+                            THEN monthly_count:= 4; 
+                    ELSIF i_start_day IN (6) AND i_days_in_month IN (29,30,31)
+                            THEN monthly_count:= 5;   
+                    ELSIF i_start_day IN (7) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 5;  
+                    ELSIF i_start_day IN (1,2,3) AND i_days_in_month IN (28,29,30,31)
+                            THEN monthly_count:= 4;                        
+                    ELSIF i_start_day IN (4) AND i_days_in_month IN (28,29,30)
+                            THEN monthly_count:= 4;      
+                    ELSIF i_start_day IN (4) AND i_days_in_month IN (31)
+                            THEN monthly_count:= 5;               
+                                                                                   
+                    END IF;               
+                                                                                    
+                                                 
+    END IF;                      
+    
+    RETURN monthly_count;
+               
+ END DayOfWeeKCountForMonth; 
+ 
+  PROCEDURE SysDateSchema
+--PURPOSE: Populates and maintains the "dim_sys_date_schema" table
   (
     --declare in params
      i_update_type            IN VARCHAR2, -->build or sync
@@ -363,43 +530,43 @@ AS
                                                                                 NULL                                                                                
                                                                          END AS saturday_of_month,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                                                                          
-                                                                         fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
+                                                                         DayOfWeeKCountForMonth(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
                                                                                                                              to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              1
                                                                                                                              ) 
                                                                          AS sundays_in_month,  
                                                                          
-                                                                         fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
+                                                                         DayOfWeeKCountForMonth(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
                                                                                                                              to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              2
                                                                                                                              ) 
                                                                          AS mondays_in_month,     
                                                                          
-                                                                         fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
+                                                                         DayOfWeeKCountForMonth(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
                                                                                                                              to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              3
                                                                                                                              ) 
                                                                          AS tuesdays_in_month,   
                                                                          
-                                                                         fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
+                                                                         DayOfWeeKCountForMonth(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
                                                                                                                              to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              4
                                                                                                                              ) 
                                                                          AS wednesdays_in_month,   
                                                                          
-                                                                         fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
+                                                                         DayOfWeeKCountForMonth(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
                                                                                                                              to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              5
                                                                                                                              ) 
                                                                          AS thursdays_in_month,     
                                                                          
-                                                                         fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
+                                                                         DayOfWeeKCountForMonth(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
                                                                                                                              to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              6
                                                                                                                              ) 
                                                                          AS fridays_in_month,     
                                                                          
-                                                                         fn_day_of_week_counter_per_mon(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
+                                                                         DayOfWeeKCountForMonth(to_number(to_char(trunc(p_cur_date,'MONTH'),'D')),
                                                                                                                              to_number(to_char(last_day(p_cur_date),'DD')),
                                                                                                                              7
                                                                                                                              ) 
@@ -640,3 +807,4 @@ AS
   END SysDateSchema;
 
  END sysutils;
+
